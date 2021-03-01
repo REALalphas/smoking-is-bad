@@ -49,6 +49,9 @@ h5 {
 h6 {
     font-size: 1em;
 }
+p {
+    line-height: calc(var(--size) * 1.33);
+}
 .content {
     max-width: 1280px;
     margin: 0 auto;
@@ -63,7 +66,46 @@ h6 {
     margin: var(--size);
     padding: calc(var(--size) * 1.66);
     box-shadow: 0 0 calc(var(--size) * 0.66) #3333;
-    line-height: calc(var(--size) * 1.33)
+}
+.container.img_text {
+    display: flex;
+    margin: var(--size);
+    box-shadow: 0 0 calc(var(--size) * 0.66) #3333;
+}
+.container.img_text>img {
+    border-radius: var(--size) 0 0 var(--size);
+    width: 23vw;
+    height: 23vw;
+}
+.container.img_text.right>img {
+    border-radius: 0 var(--size) var(--size) 0;
+}
+.container.img_text>div {
+    padding: calc(var(--size) * 1.66);
+    height: fit-content;
+    margin: auto 0;
+}
+.container.img_text.right>div {
+    text-align: right;
+}
+@media screen and (max-width: 1280px) {
+    .container.img_text {
+        flex-direction: column;
+    }
+    .container.img_text>img {
+        border-radius: var(--size);
+        width: 66vw;
+        height: 66vw;
+    }
+    .container.img_text.right {
+        flex-direction: column-reverse;
+    }
+    .container.img_text.right>img {
+        border-radius: var(--size);
+        width: 66vw;
+        height: 66vw;
+        margin-left: auto;
+    }
 }
 .container.calc>div {
     margin: calc(var(--size) / 2);
@@ -91,7 +133,7 @@ section.big-header {
     padding: 3em 0;
 }
 footer {
-    margin-top: 280px;
+    margin-top: 22vw;
     background: #222;
     color: #ffffff;
     padding: var(--size);
@@ -99,7 +141,7 @@ footer {
 footer>img {
     display: block;
     position: relative;
-    top: -120px;
+    top: -13vw;
     max-height: 560px;
     margin: 0 auto;
 }

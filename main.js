@@ -79,7 +79,8 @@ function processScrolling() {
     filterStyle.height = `${cigarHeight/4}px`
 
     body.style.background = `hsl(23, 10%, ${gilzHeightSmoked/gilzHeight*50+60}%)`
-    footerImg.style.width = (window.innerWidth < 1200) ? `${window.innerWidth * 0.33}px` : ''
+
+    footerImg.style.width = (window.innerWidth < 1280) ? `${window.innerWidth * 0.9}px` : ''
     
 }
 
