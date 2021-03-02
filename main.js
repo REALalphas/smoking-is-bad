@@ -14,21 +14,25 @@ cigarStyle.position = 'absolute'
 cigarStyle.width = '32px'
 cigarStyle.left = '-128px'
 cigarStyle.overflow = 'hidden'
+
 const gilzStyle = gilz.style
 gilzStyle.zIndex = 10
 gilzStyle.position = 'relative'
 gilzStyle.background = '#E8E0DE'
 gilzStyle.width = '32px'
+
 const ashStyle = ash.style
 ashStyle.zIndex = 5
 ashStyle.position = 'absolute'
 ashStyle.background = '#bbb4af'
 ashStyle.width = '32px'
+
 const smoldStyle = smold.style
 smoldStyle.zIndex = 15
 smoldStyle.position = 'absolute'
 smoldStyle.background = 'rgb(255,100,100)'
 smoldStyle.width = '32px'
+
 const filterStyle = filter.style
 filterStyle.zIndex = 20
 filterStyle.position = 'relative'
@@ -58,7 +62,7 @@ function processScrolling() {
     ofsetedScrollY = Math.max(Math.min(window.scrollY, ofsetedScrollHeight), topOfset)
 
     gilzHeightSmoked = Math.max(gilzHeight - Math.max(
-        ofsetedScrollY / ofsetedScrollHeight * cigarHeight
+        ofsetedScrollY / ofsetedScrollHeight * cigarHeight-26
     , 0), 0)
     smoldPos = gilzHeight-gilzHeightSmoked-smoldAnger/2
     
@@ -92,7 +96,10 @@ setInterval(() => processScrolling())
 var oldScrollY = ofsetedScrollY
 setInterval(() => {
     cigarPos = cigarPos+(34-cigarPos)*0.133
-    ashPos = ashPos+(gilzHeight-gilzHeightSmoked-ashPos)*0.066
+    if (ashPos+(gilzHeight-gilzHeightSmoked-ashPos)*0.036 > ashPos)
+        ashPos = ashPos+(gilzHeight-gilzHeightSmoked-ashPos)*0.036
+    else
+        ashPos = gilzHeight-gilzHeightSmoked
     smoldAnger = (gilzHeightSmoked > 1) ? Math.min(smoldAnger+(Math.max(ofsetedScrollY-oldScrollY, 0)-smoldAnger)*0.6, 6) : 0
     oldScrollY = ofsetedScrollY
 }, 33)
@@ -103,7 +110,6 @@ var c_InPack = 20
 var c_PerDay = 8
 var c_Time = 0
 
-
 const cigarsPricePerPackSpan = document.getElementById('cigarsPricePerPackSpan')
 const cigarsPricePerPack = document.getElementById('cigarsPricePerPack')
 const cigarsPricePerPackNum = document.getElementById('cigarsPricePerPackNum')
@@ -112,27 +118,50 @@ cigarsPricePerPack.addEventListener('change', (e) => {
     cigarsPricePerPackNum.value = e.target.value
     cigarsPricePerPackSpan.textContent = `Стоимость одной пачки (${e.target.value} руб)`
     c_PricePerPack = e.target.value
+    startThinking()
 })
+
 cigarsPricePerPackNum.addEventListener('change', (e) => {
     cigarsPricePerPack.value = e.target.value
     cigarsPricePerPackSpan.textContent = `Стоимость одной пачки (${e.target.value} руб)`
     c_PricePerPack = e.target.value
+    startThinking()
 })
 
 const cigarsInPackSpan = document.getElementById('cigarsInPackSpan')
 const cigarsInPack = document.getElementById('cigarsInPack')
+const cigarsInPackNum = document.getElementById('cigarsInPackNum')
 
 cigarsInPack.addEventListener('change', (e) => {
+    cigarsInPackNum.value = e.target.value
     cigarsInPackSpan.textContent = `Сигарет в пачке (${e.target.value} шт)`
     c_InPack = e.target.value
+    startThinking()
+})
+
+cigarsInPackNum.addEventListener('change', (e) => {
+    cigarsInPack.value = e.target.value
+    cigarsInPackSpan.textContent = `Сигарет в пачке (${e.target.value} шт)`
+    c_InPack = e.target.value
+    startThinking()
 })
 
 const cigarsPerDaySpan = document.getElementById('cigarsPerDaySpan')
 const cigarsPerDay = document.getElementById('cigarsPerDay')
+const cigarsPerDayNum = document.getElementById('cigarsPerDayNum')
 
 cigarsPerDay.addEventListener('change', (e) => {
+    cigarsPerDayNum.value = e.target.value
     cigarsPerDaySpan.textContent = `Сколько выкуриваю в день (${e.target.value} шт)`
     c_PerDay = e.target.value
+    startThinking()
+})
+
+cigarsPerDayNum.addEventListener('change', (e) => {
+    cigarsPerDay.value = e.target.value
+    cigarsPerDaySpan.textContent = `Сколько выкуриваю в день (${e.target.value} шт)`
+    c_PerDay = e.target.value
+    startThinking()
 })
 
 const cigarsReplaceMe = document.getElementById('cigarsReplaceMe')
@@ -154,23 +183,30 @@ const cigarsPreDone = document.getElementById('cigarsPreDone')
 pickCigarsDate.addEventListener('click', (e) => {
     cigarsReplaceMe.style.display = 'none'
     cigarsDateStartDiv.style.display = 'inline-block'
+    startThinking()
 })
 cigarsDateStartBack.addEventListener('click', (e) => {
     cigarsReplaceMe.style.display = 'inline-block'
     cigarsDateStartDiv.style.display = 'none'
+    c_Time = 0
+    startThinking()
 })
 
 pickCigarsPreDone.addEventListener('click', (e) => {
     cigarsReplaceMe.style.display = 'none'
     cigarsPreDoneDiv.style.display = 'inline-block'
+    startThinking()
 })
 cigarsPreDoneBack.addEventListener('click', (e) => {
     cigarsReplaceMe.style.display = 'inline-block'
     cigarsPreDoneDiv.style.display = 'none'
+    c_Time = 0
+    startThinking()
 })
 
 cigarsDateStart.addEventListener('change', (e) => {
     c_Time = Math.max( (Date.now() - e.target.valueAsNumber) / 1000 / 60 / 60 / 24, 0 )
+    startThinking()
 })
 
 var temp_c_time = 0
@@ -178,30 +214,78 @@ var temp_Hyrs = 0
 var temp_yrs = 0
 var temp_dys = 0
 cigarsPreDone.addEventListener('change', (e) => {
-    c_Time = e.target.value * 30.0824175824
+    c_Time = e.target.value * 182.5
     if (c_Time >= 182.5) {
+
         temp_c_time = Math.round(c_Time)
-        temp_Hyrs = Math.round(temp_c_time/182.5)
-        temp_yrs = Math.round(temp_c_time/365)
+        temp_Hyrs = Math.floor(temp_c_time/182.5)
+        temp_yrs = Math.floor(temp_c_time/365)
+
         if (Math.round(temp_Hyrs%2) == 1 && temp_yrs < 1)
-        cigarsPreDoneSpan.textContent = `Сколько я курил (1/2 года)`
+
+            cigarsPreDoneSpan.textContent = `Сколько я курил (1/2 года)`
+
         else if (Math.round(temp_Hyrs%2) == 1)
-        cigarsPreDoneSpan.textContent = `Сколько я курил (${temp_yrs}+1/2 лет)`
+
+            cigarsPreDoneSpan.textContent = `Сколько я курил (${temp_yrs}+1/2 лет)`
         else
-        cigarsPreDoneSpan.textContent = `Сколько я курил (${temp_yrs} лет)`
+            cigarsPreDoneSpan.textContent = `Сколько я курил (${temp_yrs} лет)`
     } else {
         cigarsPreDoneSpan.textContent = `Сколько я курил (${Math.round( c_Time )} дней)`
     }
+    startThinking()
 })
-
 
 const cigarsCheckout = document.getElementById('cigarsCheckout')
 var packsPerDay = 0
-var temp_days = 365
+var temp_days = 0
+var temp_loosed_money = 0
 function updateCheckout() {
     packsPerDay = parseInt(c_PerDay)/parseInt(c_InPack)
 
-    cigarsCheckout.innerText = `Ты потерял ${Math.round( c_Time*( packsPerDay * parseInt(c_PricePerPack) ) )} рублей`
+    temp_loosed_money = Math.round( c_Time*( packsPerDay * parseInt(c_PricePerPack) ) )
+    if (temp_loosed_money != 0) {
+        cigarsCheckout.innerText = `Вы потеряли ${new Intl.NumberFormat('ru-RU').format(temp_loosed_money)} рублей`
+
+        if (temp_loosed_money > 900000) {
+            looseThink('house', 'Квартира', 'Сейчас можно было бы сидеть в новой квартире')
+        } else if (temp_loosed_money > 90000) {
+            looseThink('sport-utility-vehicle', 'Машина', 'Вместо сигарет, можно было бы купить целую машину')
+        } else if (temp_loosed_money > 50000) {
+            looseThink('desert-island', 'Туризм', 'Можно было бы поехать отдохнуть в другую страну')
+        } else if (temp_loosed_money > 12000) {
+            looseThink('mobile-phone', 'Хороший смартфон', 'За эти деньги можно было купить себе хороший смартфон')
+        } else if (temp_loosed_money > 8000) {
+            looseThink('bicycle', 'Хороший велосипед', 'Сейчас бы катался и укреплял здоровье')
+        } else if (temp_loosed_money > 5000) {
+            looseThink('mobile-phone', 'Смартфон', 'За эти деньги можно было купить себе смартфон')
+        } else if (temp_loosed_money > 1000) {
+            looseThink('headphone', 'Наушники', 'Сейчас можно было бы наслаждаться музыкой')
+        } else if (temp_loosed_money > 500) {
+            looseThink('shortcake', 'Торт', 'Обычный вкусный тортик, которого нет')
+        } else if (temp_loosed_money > 200) {
+            looseThink('dumpling', 'Пельмени', 'Можно было бы сейчас поесть пельмени')
+        } else {
+            looseThink('croissant', 'Булочка', 'Вы бы могли купить вкусную булочку')
+        }
+    }
+    else {
+        cigarsCheckout.innerText = 'Вы ничего не потеряли'
+        looseThink('money-with-wings', 'Деньги', 'То что вы смогли сохранить, не купив ни одной пачки сигарет')
+    }
 }
 
-setInterval(() => updateCheckout(), 1000)
+setInterval(() => updateCheckout(), 3000)
+
+const cigarsWhatYouLoose = document.getElementById('cigarsWhatYouLoose')
+function startThinking() {
+    cigarsWhatYouLoose.childNodes[1].src = './thinking-face.png'
+    cigarsWhatYouLoose.childNodes[3].innerText = 'Думаем...'
+    cigarsWhatYouLoose.childNodes[5].innerText = 'Рассчитываем, исходя из ваших данных'
+    cigarsCheckout.innerText = `Вы потеряли # рублей`
+}
+function looseThink(img, header, par) {
+    cigarsWhatYouLoose.childNodes[1].src = './'+img+'.png'
+    cigarsWhatYouLoose.childNodes[3].innerText = header
+    cigarsWhatYouLoose.childNodes[5].innerText = par
+}

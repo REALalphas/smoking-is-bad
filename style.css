@@ -74,8 +74,8 @@ p {
 }
 .container.img_text>img {
     border-radius: var(--size) 0 0 var(--size);
-    width: 23vw;
-    height: 23vw;
+    width: min(23vw, 400px);
+    height: min(23vw, 400px);
 }
 .container.img_text.right>img {
     border-radius: 0 var(--size) var(--size) 0;
@@ -94,21 +94,22 @@ p {
     }
     .container.img_text>img {
         border-radius: var(--size);
-        width: 66vw;
-        height: 66vw;
+        width: min(66vw, 400px);
+        height: min(66vw, 400px);
     }
     .container.img_text.right {
         flex-direction: column-reverse;
     }
     .container.img_text.right>img {
         border-radius: var(--size);
-        width: 66vw;
-        height: 66vw;
+        width: min(66vw, 500px);
+        height: min(66vw, 500px);
         margin-left: auto;
     }
 }
 .container.calc>div {
-    margin: calc(var(--size) / 2);
+    margin-top: var(--size);
+    margin-right: var(--size);
     vertical-align: top;
     display: inline-block;
     border: 1px solid #3333;
@@ -125,6 +126,20 @@ p {
     padding: calc(var(--size) * 0.33) calc(var(--size) * 0.66);
     border: none;
     border-radius: calc(var(--size) / 2);
+}
+.container.calc>div>input[type="range"] {
+    width: calc(100% - var(--size) * 1.5);
+}
+.what-you-loose {
+    max-width: 300px;
+}
+.what-you-loose>h5 {
+    text-align: center;
+}
+.what-you-loose>img {
+    display: block;
+    max-width: 76px;
+    margin: var(--size) auto;
 }
 section.big-header {
     width: fit-content;

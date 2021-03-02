@@ -35,7 +35,7 @@
         <div class="container img_text right">
             <div>
                 <h2>Люди бросают</h2>
-                <p>Статистика показывает, что все большее количество людей бросают курить: Да - 43.84%; Нет - 33.02%; Бросил(а) - 15.3%; Иногда - 7.82%;</p>
+                <p>Статистика показывает, что все большее количество людей бросают курить. <span style="display: inline-block; font-size: calc(var(--size) / 1.66)">На ворос "Вы курите?" ответели: Да - 43.84%; Нет - 33.02%; Бросил(а) - 15.3%; Иногда - 7.82%;</span></p>
             </div>
             <img src="./graph.png" alt="">
         </div>
@@ -57,14 +57,17 @@
             <div>
                 <span id="cigarsInPackSpan">Сигарет в пачке (20 шт)</span>
                 <input type="range" min="5" value="20" max="42" id="cigarsInPack">
+                <input type="number" min="5" value="20" max="42" id="cigarsInPackNum">
             </div>
             <div>
                 <span id="cigarsPerDaySpan">Сколько выкуриваю в день (8 шт)</span>
                 <input type="range" min="1" value="8" max="40" id="cigarsPerDay">
+                <input type="number" min="1" value="8" max="40" id="cigarsPerDayNum">
             </div>
             <div id="cigarsReplaceMe">
-                <button id="pickCigarsDate">Я знаю дату когда я начал курить</button>
-                <button id="pickCigarsPreDone">Я знаю сколько времени я курил</button>
+                <h3>Я знаю</h3>
+                <button id="pickCigarsDate">Дату когда я начал курить</button>
+                <button id="pickCigarsPreDone">Сколько времени я курил</button>
             </div>
             <div id="cigarsDateStartDiv">
                 <button id="cigarsDateStartBack">Назад к выбору</button>
@@ -74,10 +77,15 @@
             <div id="cigarsPreDoneDiv">
                 <button id="cigarsPreDoneBack">Назад к выбору</button>
                 <span id="cigarsPreDoneSpan">Сколько я курил</span>
-                <input type="range" min="1" value="1" max="182" id="cigarsPreDone">
+                <input type="range" min="0" value="0" max="40" id="cigarsPreDone">
             </div>
             <div>
-                <p id="cigarsCheckout">Ты потерял # рублей</p>
+                <p id="cigarsCheckout">Вы потеряли # рублей</p>
+            </div>
+            <div class="what-you-loose" id="cigarsWhatYouLoose">
+                <img src="./money-with-wings.png">
+                <h5>Деньги</h5>
+                <p>То что вы смогли сохранить, не купив ни одной пачки сигарет</p>
             </div>
         </div>
     </div>
@@ -93,7 +101,7 @@
             <br>
             <h3>Спасибо сайтам</h3>
             <li><a href="https://glvrd.ru">Главред</a> - Копирайтинг</li>
-            <li><a href="https://minzdrav.gov.ru">Миндрав РФ</a> - Сбор информации о курящих</li>
+            <li><a href="https://minzdrav.gov.ru">Минздрав РФ</a> - Сбор информации о курящих</li>
             
             
             <p class="copyright">Почта для сотрудничества <a href="mailto:alphas@alphas.cyou">alphas@alphas.cyou</a></br></br>&copy; 2021 AlphaS</p>
