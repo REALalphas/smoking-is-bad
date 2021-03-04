@@ -67,6 +67,13 @@ p {
     padding: calc(var(--size) * 1.66);
     box-shadow: 0 0 calc(var(--size) * 0.66) #3333;
 }
+.container.text>li {
+    line-height: calc(var(--size) * 1.1);
+    font-size: calc(var(--size) / 1.33)
+}
+.container.text>h6 {
+    margin: calc(var(--size) / 2) 0;
+}
 .container.img_text {
     display: flex;
     margin: var(--size);
@@ -145,7 +152,7 @@ section.big-header {
     width: fit-content;
     font-size: 2em;
     margin: 0 auto;
-    padding: 3em 0;
+    padding: min(16.6vw, 160px) 0;
 }
 footer {
     margin-top: 22vw;

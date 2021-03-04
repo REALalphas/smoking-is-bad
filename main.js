@@ -264,9 +264,12 @@ function updateCheckout() {
         } else if (temp_loosed_money > 500) {
             looseThink('shortcake', 'Торт', 'Обычный вкусный тортик, которого нет')
         } else if (temp_loosed_money > 200) {
-            looseThink('dumpling', 'Пельмени', 'Можно было бы сейчас поесть пельмени')
-        } else {
+            looseThink('dumpling', 'Пельмени', 'Можно было бы сейчас поесть пельменей')
+        } else if (temp_loosed_money > 0) {
             looseThink('croissant', 'Булочка', 'Вы бы могли купить вкусную булочку')
+        } else {
+            cigarsCheckout.innerText = 'Вы ничего не потеряли'
+            looseThink('money-with-wings', 'Деньги', 'То что вы смогли сохранить, не купив ни одной пачки сигарет')
         }
     }
     else {
