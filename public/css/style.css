@@ -3,14 +3,15 @@
 }
 body {
     font-size: var(--size);
-    font-family: 'Noto Sans', 'Helvetica', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     color: #222 !important;
     background: #ffffff;
 }
 button {
     display: block;
     background: #f5f5f5;
-    padding: calc(var(--size) * 0.33) calc(var(--size) * 0.66) calc(var(--size) * 0.4) calc(var(--size) * 0.66);
+    padding: calc(var(--size) * 0.33) calc(var(--size) * 0.66)
+        calc(var(--size) * 0.4) calc(var(--size) * 0.66);
     border: none;
     border-radius: calc(var(--size) / 2);
 }
@@ -27,7 +28,12 @@ a {
 a:hover {
     color: #83cdff;
 }
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: bold;
     margin-bottom: calc(var(--size) / 2);
 }
@@ -49,6 +55,12 @@ h5 {
 h6 {
     font-size: 1em;
 }
+h2 + p:not(:last-child) {
+    margin-bottom: 2em;
+}
+h6 + p {
+    margin-bottom: 1em;
+}
 p {
     line-height: calc(var(--size) * 1.33);
 }
@@ -60,90 +72,92 @@ p {
 .container {
     display: block;
     background: #ffffff;
-    border-radius: var(--size);
+    border-radius: calc(var(--size) * 1.66);
 }
 .container.text {
     margin: var(--size);
+    margin-bottom: calc(var(--size) * 1.66);
     padding: calc(var(--size) * 1.66);
-    box-shadow: 0 0 calc(var(--size) * 0.66) #3333;
+    box-shadow: 0 0 0 2px #0001;
 }
-.container.text>li {
+.container.text > li {
     line-height: calc(var(--size) * 1.1);
-    font-size: calc(var(--size) / 1.33)
+    font-size: calc(var(--size) / 1.33);
 }
-.container.text>h6 {
+.container.text > h6 {
     margin: calc(var(--size) / 2) 0;
 }
 .container.img_text {
     display: flex;
     margin: var(--size);
-    box-shadow: 0 0 calc(var(--size) * 0.66) #3333;
+    margin-bottom: calc(var(--size) * 1.66);
+    box-shadow: 0 0 0 2px #0001;
 }
-.container.img_text>img {
-    border-radius: var(--size) 0 0 var(--size);
+.container.img_text > img {
+    border-radius: calc(var(--size) * 1.66) 0 0 calc(var(--size) * 1.66);
     width: min(23vw, 400px);
     height: min(23vw, 400px);
 }
-.container.img_text.right>img {
-    border-radius: 0 var(--size) var(--size) 0;
+.container.img_text.right > img {
+    border-radius: 0 calc(var(--size) * 1.66) calc(var(--size) * 1.66) 0;
 }
-.container.img_text>div {
+.container.img_text > div {
     padding: calc(var(--size) * 1.66);
     height: fit-content;
     margin: auto 0;
 }
-.container.img_text.right>div {
+.container.img_text.right > div {
     text-align: right;
 }
 @media screen and (max-width: 1280px) {
     .container.img_text {
         flex-direction: column;
     }
-    .container.img_text>img {
-        border-radius: var(--size);
+    .container.img_text > img {
+        border-radius: calc(var(--size) * 1.66);
         width: min(66vw, 400px);
         height: min(66vw, 400px);
     }
     .container.img_text.right {
         flex-direction: column-reverse;
     }
-    .container.img_text.right>img {
-        border-radius: var(--size);
+    .container.img_text.right > img {
+        border-radius: calc(var(--size) * 1.66);
         width: min(66vw, 500px);
         height: min(66vw, 500px);
         margin-left: auto;
     }
 }
-.container.calc>div {
+.container.calc > div {
     margin-top: var(--size);
     margin-right: var(--size);
     vertical-align: top;
     display: inline-block;
     border: 1px solid #3333;
     padding: var(--size);
-    border-radius: var(--size);
+    border-radius: calc(var(--size) * 1.33);
 }
-.container.calc>div>span {
+.container.calc > div > span {
     display: block;
     font-size: 0.8em;
 }
-.container.calc>div>input {
+.container.calc > div > input {
     display: block;
     background: #f5f5f5;
     padding: calc(var(--size) * 0.33) calc(var(--size) * 0.66);
     border: none;
     border-radius: calc(var(--size) / 2);
 }
-.container.calc>div>input[type="range"] {
+.container.calc > div > input[type='range'] {
     width: calc(100% - var(--size) * 1.5);
 }
 .what-you-loose {
     max-width: 300px;
 }
-.what-you-loose>h5 {
+.what-you-loose > h5 {
     text-align: center;
 }
-.what-you-loose>img {
+.what-you-loose > img {
     display: block;
     max-width: 76px;
     margin: var(--size) auto;
@@ -151,6 +165,8 @@ p {
 section.big-header {
     width: fit-content;
     font-size: 2em;
+    font-weight: bold;
+    letter-spacing: 2px;
     margin: 0 auto;
     padding: min(16.6vw, 160px) 0;
 }
@@ -160,18 +176,18 @@ footer {
     color: #ffffff;
     padding: var(--size);
 }
-footer>img {
+footer > img {
     display: block;
     position: relative;
     top: -13vw;
     max-height: 560px;
     margin: 0 auto;
 }
-footer>div {
+footer > div {
     max-width: 1280px;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
-footer>div>* {
+footer > div > * {
     margin-bottom: calc(var(--size) / 2);
 }
 .copyright {
@@ -194,7 +210,6 @@ footer>div>* {
         display: none;
     }
 }
-
 
 @media screen and (max-width: 420px) {
     :root {
